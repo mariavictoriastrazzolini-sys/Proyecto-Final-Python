@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de lugares</title>
+</head>
+<body>
+    {% extends "AppLugares/inicio.html" %}
+    {% load static %}
+    {% block contenidoQueCambia %}
+       <h1>En este listado podrás conocer distintos lugares del mundo</h1>
+       {% for lugar in lugares %}
+         <h3>{{lugar.nombre}}</h3>
+         <p>Ciudad: {{lugar.ciudad}}</p>
+         <p>Pais: {{lugar.pais}}</p>
+         <p>Descripción: {{lugar.descripcion}}</p>
+        {% empty %}
+        <p>No hay lugares cargados</p>
+        {% endfor %}
+    {% endblock %}
+
+    
+</body>
+</html>

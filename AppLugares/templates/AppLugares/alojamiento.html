@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Alojamientos</title>
+</head>
+<body>
+    {% extends "AppLugares/inicio.html" %}
+    {% load static %}
+    {% block contenidoQueCambia %}
+       <h1>¡Conocé todos los alojamientos disponibles!</h1>
+       {% for alojamiento in alojamientos %}
+         <h3>{{alojamiento.nombre}}</h3>
+         <p>Tipo: {{alojamiento.tipo}}</p>
+         <p>Precio por noche: {{alojamiento.precio_por_noche}}</p>
+        {% empty %}
+        <p>No hay alojamientos</p>
+        {% endfor %}
+    {% endblock %}
+
+    
+</body>
+</html>
