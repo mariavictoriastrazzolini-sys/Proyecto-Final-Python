@@ -1,0 +1,16 @@
+{% extends "AppLugares/inicio.html" %}
+
+{% block contenidoQueCambia %}
+<h1>Experiencias</h1>
+
+{% if object_list %}
+  {% for experiencia in object_list %}
+    <p>{{ experiencia.comentario }}</p>
+    <p>Puntuación: {{ experiencia.puntuacion }}</p>
+    <hr>
+  {% endfor %}
+{% else %}
+  <p>No hay experiencias cargadas aún.</p>
+{% endif %}
+
+{% endblock %}

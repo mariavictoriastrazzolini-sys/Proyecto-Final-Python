@@ -1,0 +1,15 @@
+{% extends "AppLugares/inicio.html" %}
+
+{% block bienvenida %}{% endblock %}
+
+{% block contenidoQueCambia %}
+<h1>Crear lugar</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Guardar</button>
+</form>
+
+<a href="{% url 'lugares' %}">Volver a la lista</a>
+{% endblock %}

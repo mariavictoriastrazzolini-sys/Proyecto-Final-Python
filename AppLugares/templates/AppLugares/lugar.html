@@ -11,10 +11,16 @@
     {% block contenidoQueCambia %}
        <h1>En este listado podrás conocer distintos lugares del mundo</h1>
        {% for lugar in lugares %}
-         <h3>{{lugar.nombre}}</h3>
-         <p>Ciudad: {{lugar.ciudad}}</p>
-         <p>Pais: {{lugar.pais}}</p>
-         <p>Descripción: {{lugar.descripcion}}</p>
+         <h3>{{ lugar.nombre }}</h3>
+         <p>Ciudad: {{ lugar.ciudad }}</p>
+         <p>Pais: {{ lugar.pais }}</p>
+         <p>Autor: {{ lugar.autor.username }}</p>
+         {% if lugar.imagen %}
+              <img src="{{ lugar.imagen.url }}" alt="{{ lugar.nombre }}" style="max-width: 300px;">
+         {% endif %}
+
+         <div><strong>Descripción:</strong> {{ lugar.descripcion|safe }}</div>
+         <p><small>Publicado el: {{ lugar.fecha_creacion }}</small></p>
         {% empty %}
         <p>No hay lugares cargados</p>
         {% endfor %}

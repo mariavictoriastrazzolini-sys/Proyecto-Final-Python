@@ -1,0 +1,43 @@
+{% extends "AppLugares/inicio.html" %}
+
+{% block bienvenida %}{% endblock %}
+
+{% block contenidoQueCambia %}
+<h1>Eliminar lugar</h1>
+
+<p>
+    ¿Estás seguro de que querés eliminar el lugar  
+    <strong>{{ object.nombre }}</strong>?
+</p>
+
+<div style="margin-top: 20px;">
+    <form method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit"
+                style="
+                    background-color:#b00020;
+                    color:white;
+                    border:none;
+                    padding:10px 16px;
+                    border-radius:6px;
+                    cursor:pointer;
+                ">
+            Sí, eliminar
+        </button>
+    </form>
+
+    <a href="{% url 'lugares' %}"
+       style="
+           margin-left:10px;
+           background-color:#e0e0e0;
+           color:#333;
+           padding:10px 16px;
+           border-radius:6px;
+           text-decoration:none;
+       ">
+        Cancelar
+    </a>
+</div>
+{% endblock %}
+
+

@@ -4,6 +4,7 @@ from django.shortcuts import render
 from AppLugares.models import Alojamiento, Experiencia, Lugar
 from AppLugares.forms import LugarForm, AlojamientoForm, ExperienciaForm
 
+# VISTAS FBV
 
 def inicio(request):
     return render (request , "AppLugares/inicio.html")
@@ -76,14 +77,67 @@ def crear_experiencia(request):
     return render(request, "AppLugares/ExperienciaForm.html", {"miFormulario": miFormulario})
 
 
-def busquedaLugar(request):
-    return render (request, "AppLugares/BusquedaLugar.html")
-
 def buscar(request):
-    if request.GET["nombre"]:
-        nombre= request.GET ["nombre"]
-        lugares= Lugar.objects.filter(nombre__icontains=nombre)
-        return render (request, "AppLugares/resultadosBusqueda.html", {"lugares":lugares, "nombre":nombre})
-    else:
-        respuesta="No enviaste datos"
-        return HttpResponse(respuesta)
+    nombre = request.GET.get("nombre", "")
+
+    lugares = []
+
+    if nombre:
+        lugares = Lugar.objects.filter(nombre__icontains=nombre)
+
+    return render(
+        request,
+        "AppLugares/resultadosBusqueda.html",
+        {
+            "lugares": lugares,
+            "nombre": nombre
+        }
+    )
+    
+
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+
+# VISTAS CBV - LUGAR
+
+class LugarListView(ListView):
+    model = Lugar
+    template_name = "AppLugares/lugar_list.html"
+
+class LugarDetailView(DetailView):
+    model = Lugar
+    template_name = "AppLugares/lugar_detail.html"
+
+class LugarCreateView(LoginRequiredMixin, CreateView):
+    model = Lugar
+    fields = ["nombre", "ciudad", "pais", "descripcion", "imagen"]
+    template_name = "AppLugares/lugar_form.html"
+    success_url = reverse_lazy("lugares")
+    
+    
+    def form_valid(self, form):
+        form.instance.autor = self.request.user
+        return super().form_valid(form)
+
+class LugarUpdateView(LoginRequiredMixin, UpdateView):
+    model = Lugar
+    fields = ["nombre", "ciudad", "pais", "descripcion", "imagen"]
+    template_name = "AppLugares/lugar_form.html"
+    success_url = reverse_lazy("lugares")
+
+class LugarDeleteView(LoginRequiredMixin, DeleteView):
+    model = Lugar
+    template_name = "AppLugares/lugar_confirm_delete.html"
+    success_url = reverse_lazy("lugares")
+
+class AlojamientoListView(ListView):
+    model = Alojamiento
+    template_name = "alojamientos/alojamiento_list.html"
+
+class ExperienciaListView(ListView):
+    model = Experiencia
+    template_name = "experiencias/experiencia_list.html"
+
+def about(request):
+    return render(request, "AppLugares/about.html")

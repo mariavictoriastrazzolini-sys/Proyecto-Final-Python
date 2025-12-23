@@ -1,0 +1,35 @@
+{% extends "AppLugares/inicio.html" %}
+
+{% block bienvenida %}{% endblock %}
+
+{% block contenidoQueCambia %}
+<h1>Mensajes recibidos</h1>
+
+<a href="{% url 'send_message' %}"
+   style="
+       display:inline-block;
+       background-color:#64b5f6;
+       color:#eceef1;
+       padding:8px 14px;
+       border-radius:6px;
+       text-decoration:none;
+       margin-bottom:10px;
+   ">
+     Enviar mensaje
+</a>
+
+<hr>
+
+
+{% if mensajes %}
+    {% for mensaje in mensajes %}
+        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+            <p><strong>De:</strong> {{ mensaje.sender.username }}</p>
+            <p>{{ mensaje.content }}</p>
+            <small>{{ mensaje.created_at }}</small>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No tenés mensajes.</p>
+{% endif %}
+{% endblock %}

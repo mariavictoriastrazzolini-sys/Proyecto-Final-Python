@@ -1,0 +1,44 @@
+{% extends "AppLugares/inicio.html" %}
+
+{% block contenidoQueCambia %}
+<div class="container mt-4" style="max-width:600px;">
+
+    <h1 class="mb-4">Mi perfil</h1>
+
+    <div class="card p-4 shadow-sm">
+
+        {% if profile.avatar %}
+            <div class="text-center mb-3">
+                <img src="{{ profile.avatar.url }}"
+                     class="rounded-circle"
+                     width="150"
+                     height="150"
+                     style="object-fit:cover;">
+            </div>
+        {% endif %}
+
+        <p><strong>Usuario:</strong> {{ user.username }}</p>
+        <p><strong>Nombre:</strong> {{ user.first_name }}</p>
+        <p><strong>Apellido:</strong> {{ user.last_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+
+        {% if profile.bio %}
+            <p><strong>Bio:</strong> {{ profile.bio }}</p>
+        {% endif %}
+
+        <div class="mt-4 d-flex gap-2">
+            <a href="{% url 'profile_edit' %}" class="btn btn-primary">
+                 Editar perfil
+            </a>
+
+            <a href="{% url 'password_change' %}" class="btn btn-warning">
+                 Cambiar contraseña
+            </a>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+

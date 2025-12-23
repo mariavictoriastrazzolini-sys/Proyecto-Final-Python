@@ -1,0 +1,17 @@
+{% extends "AppLugares/inicio.html" %}
+
+{% block contenidoQueCambia %}
+<h1>Alojamientos</h1>
+
+{% if object_list %}
+  {% for alojamiento in object_list %}
+    <h3>{{ alojamiento.nombre }}</h3>
+    <p>Tipo: {{ alojamiento.tipo }}</p>
+    <p>Precio por noche: {{ alojamiento.precio_por_noche }}</p>
+    <hr>
+  {% endfor %}
+{% else %}
+  <p>No hay alojamientos cargados aún.</p>
+{% endif %}
+
+{% endblock %}

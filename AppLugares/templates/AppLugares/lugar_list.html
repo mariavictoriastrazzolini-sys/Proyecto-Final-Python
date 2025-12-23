@@ -1,0 +1,83 @@
+{% extends "AppLugares/inicio.html" %}
+
+{% block bienvenida %}{% endblock %}
+
+{% block contenidoQueCambia %}
+<h1>Lugares</h1>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'lugar_create' %}"
+       style="
+           display:inline-block;
+           margin-bottom:15px;
+           background-color:#2e7d32;
+           color:white;
+           padding:8px 14px;
+           border-radius:6px;
+           text-decoration:none;
+       ">
+         Crear nuevo lugar
+    </a>
+{% endif %}
+
+{% if object_list %}
+    {% for lugar in object_list %}
+        <div style="
+            border:1px solid #ccc;
+            padding:12px;
+            margin-bottom:12px;
+            border-radius:6px;
+        ">
+            <h3>{{ lugar.nombre }}</h3>
+            <p>{{ lugar.ciudad }} - {{ lugar.pais }}</p>
+
+            <div style="margin-top:10px;">
+        
+                <a href="{% url 'lugar_detail' lugar.id %}"
+                   style="
+                       background-color:#b3e5fc;
+                       color:#01579b;
+                       padding:6px 12px;
+                       border-radius:6px;
+                       text-decoration:none;
+                       margin-right:6px;
+                   ">
+                    Ver detalle
+                </a>
+
+                {% if user.is_authenticated %}
+                  
+                    <a href="{% url 'lugar_update' lugar.id %}"
+                       style="
+                           background-color:#fff59d;
+                           color:#795548;
+                           padding:6px 12px;
+                           border-radius:6px;
+                           text-decoration:none;
+                           margin-right:6px;
+                       ">
+                        Editar
+                    </a>
+
+                    
+                    <a href="{% url 'lugar_delete' lugar.id %}"
+                       style="
+                           background-color:#ef9a9a;
+                           color:#b71c1c;
+                           padding:6px 12px;
+                           border-radius:6px;
+                           text-decoration:none;
+                       ">
+                        Eliminar
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No hay páginas aún</p>
+{% endif %}
+{% endblock %}
+
+
+

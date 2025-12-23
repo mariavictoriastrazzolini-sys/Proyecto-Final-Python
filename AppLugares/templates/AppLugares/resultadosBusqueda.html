@@ -1,21 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resultados de busqueda</title>
-</head>
-<body>
-    
-    <p>Estamos buscando el lugar: {{nombre}}</p>
+{% extends "AppLugares/inicio.html" %}
+{% block bienvenida %}{% endblock %}
+
+{% block contenidoQueCambia %}
+<h2>Resultados para "{{ nombre }}"</h2>
+
 {% if lugares %}
-    <ul>
-        {% for lugar in lugares %}
-        <li>{{lugar.nombre}}, {{lugar.ciudad}}</li>
-        {% endfor %}
-    </ul>
+    {% for lugar in lugares %}
+        <p>
+            <strong>{{ lugar.nombre }}</strong>
+            ({{ lugar.ciudad }}, {{ lugar.pais }})
+            
+                <a href="{% url 'lugar_detail' lugar.id %}"
+                   style="
+                       background-color:#b3e5fc;
+                       color:#01579b;
+                       padding:6px 12px;
+                       border-radius:6px;
+                       text-decoration:none;
+                       margin-right:6px;
+                   ">
+                    Ver
+                </a>
+        </p>
+    {% endfor %}
 {% else %}
-   <p>Sin Resultados</p> 
+    <p>No se encontraron lugares.</p>
 {% endif %}
-</body>
-</html>
+
+ <a href="{% url 'lugares' %}"
+       style="
+           background-color:#e0e0e0;
+           color:#333;
+           padding:8px 14px;
+           border-radius:6px;
+           text-decoration:none;
+           margin-right:8px;
+       ">
+        ← Volver a la lista
+    </a>
+{% endblock %}
